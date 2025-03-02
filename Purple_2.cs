@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6
+namespace Lab_6
 {
-    internal class Purple_2
+    public class Purple_2
     {
         public struct Participant
         {
@@ -23,7 +23,7 @@ namespace Lab6
                 get 
                 {
                     int[] copy = new int[5];
-                    _marks.CopyTo(copy, 0);
+                    Array.Copy(_marks, copy, _marks.Length);
                     return copy;
                 } 
             }
@@ -34,7 +34,7 @@ namespace Lab6
                     int rez = 0;
                     int mi = int.MaxValue;
                     int ma = int.MinValue;
-
+                    if (_distance <0 || _marks == null) return 0;
                     for (int i=0; i<Marks.Length; i++)
                     {
                         if (Marks[i]>ma) ma= Marks[i];
@@ -62,36 +62,25 @@ namespace Lab6
             {
                 _name = name;
                 _surname = surname;
-                _distance = 0;
+                _distance = -1;
                 _marks = new int[5];
             }
             public void Jump (int distance, int[] marks)
             {
                 if (distance < 0) return;
-                if (marks == null || marks.Length!=5) return;
+                if (marks == null || marks.Length!=5 || _marks.Length!=5) return;
                 _distance= distance;
                 for (int i = 0; i < marks.Length; i++)
                 {
                     _marks[i]= marks[i];
                 }
             }
-            public static void Sort(List<Participant> array)
-            {
-                if (array == null || array.Count == 0) return;
-                List<Participant> array1 = array.OrderByDescending(x => x.Result).ToList();
-                for (int i = 0; i < array1.Count; i++)
-                {
-                    array1[i].Print();
-                }
-            }
+            
             public static void Sort(Participant[] array)
             {
                 if (array == null || array.Length == 0) return;
-                array = array.OrderByDescending(x => x.Result).ToArray();
-                for (int i = 0; i < array.Length; i++)
-                {
-                    array[i].Print();
-                }
+                var array1 = array.OrderByDescending(x => x.Result).ToArray();
+                Array.Copy(array1, array, array.Length);
             }
             public void Print()
             {

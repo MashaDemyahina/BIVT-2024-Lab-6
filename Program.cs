@@ -4,11 +4,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using static Lab6.Purple_1;
-using static Lab6.Purple_4;
-using static Lab6.Purple_5;
+using static Lab_6.Purple_1;
+using static Lab_6.Purple_4;
+using static Lab_6.Purple_5;
 
-namespace Lab6
+namespace Lab_6
 {
     class Program
     {
@@ -16,41 +16,64 @@ namespace Lab6
         {
             //A();
             //B();
-            //C();
+            C();
             //D();
             //E();
 
         }
         static void A()
         {
-            List<Purple_1.Participant> list = new List<Purple_1.Participant>();
+            var names = "Дарья,Тихонова,Александр,Козлов,Никита,Павлов,Юрий,Луговой,Юрий,Степанов,Мария,Луговая,Виктор,Жарков,Марина,Иванова,Марина,Полевая,Максим,Тихонов".Split(',');
+            var jumps = "3,4,1,2,1,3,1,5,3,4,3,3,3,3,2,4,1,5,6,1,2,6,4,3,2,2,1,1,3,5,4,4,5,1,4,1,6,5,2,1,4,1,6,2,4,1,2,6,5,6,5,2,2,4,3,4,1,1,3,5,5,5,2,4,1,1,2,2,2,5,5,2,3,3,2,2,3,3,1,3,4,2,4,5,3,3,5,2,1,2,4,5,5,4,2,3,2,2,6,3,1,2,2,6,6,5,1,6,6,3,2,5,4,3,5,4,5,1,1,5,3,4,2,1,1,2,2,2,4,2,6,3,4,3,2,1,3,5,1,5,6,5,5,4,2,6,4,5,4,3,2,4,6,1,1,1,3,4,4,1,6,3,1,5,1,4,3,1,4,6,1,4,5,3,4,1,2,3,1,5,4,3,3,6,2,3,1,6,3,3,3,6,6,3,6,6,6,5,3,2,6,5,3,5,4,4,2,1,2,4,4,2,2,5,1,3,1,6,5,6,1,6,3,3,3,6,3,5,4,2,3,4,6,1,4,2,1,5,1,1,3,1,3,2,6,1,4,4,6,6,2,5,3,3,1,4,5,6,2,6,4,5,4,2,3,1,3,3,4,2,2,3,6,5,1,5,5,1,3,4".Split(',');
+            var crids = new double[] { 2.58, 2.90, 3.04, 3.43, 2.95, 2.63, 3.16, 2.89, 2.56, 3.40, 2.91, 2.69, 2.86, 2.90, 3.19, 3.14, 2.81, 2.64, 2.76, 3.20, 2.74, 3.30, 2.94, 3.27, 2.57, 2.79, 2.71, 3.46, 3.09, 2.67, 2.90, 3.50, 2.65, 3.47, 3.11, 3.39, 3.14, 3.46, 2.96, 2.76 };
+            var part = new Purple_1.Participant[10];
+            int ind = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                part[i] = new Purple_1.Participant(names[i * 2], names[i * 2 + 1]);
+                var crid = new double[4];
+                for (int j = 0; j < 4; j++)
+                    crid[j] = crids[i * 4 + j];
+                part[i].SetCriterias(crid);
+                for (int j = 0; j < 4; j++)
+                {
+                    int[] arr = new int[7];
+                    for (int k = 0; k < 7; k++)
+                    {
+                        arr[k] = int.Parse(jumps[ind]);
+                        ind++;
+                    }
+                    part[i].Jump(arr);
+                }
+            }
 
-            Purple_1.Participant participant = new Purple_1.Participant("Дарья", "Тихонова");
-            participant.SetCriterias(new double[] { 2.58, 2.90, 3.04, 3.43 });
-            participant.Jump(new int[] { 3, 4, 1, 2, 1, 3, 1, 5, 3, 4, 3, 3, 3, 3, 2, 4, 1, 5, 6, 1, 2, 6, 4, 3, 2, 2, 1, 1 });
-
-            Purple_1.Participant participant1 = new Purple_1.Participant("Александр", "Козлов");
-            participant1.SetCriterias(new double[] { 2.95, 2.63, 3.16, 2.89 });
-            participant1.Jump(new int[] { 3, 5, 4, 4, 5, 1, 4, 1, 6, 5, 2, 1, 4, 1, 6, 2, 4, 1, 2, 6, 5, 6, 5, 2, 2, 4, 3, 4 });
-
-            list.Add(participant);
-            list.Add(participant1);
-            Purple_1.Participant.Sort(list);
+            Purple_1.Participant.Sort(part);
+            foreach (var p in part)
+            {
+                Console.WriteLine(p.Name + " " + p.Surname + " " + p.TotalScore);
+            }
         }
         static void B()
         {
-            List<Purple_2.Participant> list = new List<Purple_2.Participant>();
+            var names = "оксана,сидорова,полина,полевая,дмитрий,полевой,евгения,распутина,савелий,луговой,евгения,павлова,егор,свиридов,степан,свиридов,анастасия,козлова,светлана,свиридова".Split(',');
+            var distance = "135,191,147,115,112,151,186,166,112,197".Split(',');
+            var marks = "15,1,3,9,15,19,14,9,11,4,20,9,1,13,6,5,20,17,9,16,19,8,1,6,17,16,12,5,20,4,5,20,3,19,18,16,12,5,4,15,7,4,19,11,12,14,3,6,17,1".Split(',');
+            var part = new Purple_2.Participant[10];
+            int ind = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                part[i] = new Purple_2.Participant(names[i * 2], names[i * 2 + 1]);
+                var m = new int[5];
+                for (int j = 0; j < 5; j++)
+                    m[j] = int.Parse(marks[ind++]);
+                part[i].Jump(int.Parse(distance[i]), m);
+            }
 
-            Purple_2.Participant participant = new Purple_2.Participant("Оксана", "Сидорова");
-            participant.Jump(135, new int[] { 15, 1, 3, 9, 15 });
-
-            Purple_2.Participant participant1 = new Purple_2.Participant("Полина", "Полевая");
-            participant1.Jump(191, new int[] { 19, 14, 9, 11, 4 });
-
-            list.Add(participant);
-            list.Add(participant1);
-
-            Purple_2.Participant.Sort(list);
+            Purple_2.Participant.Sort(part);
+            foreach (var p in part)
+            {
+                Console.WriteLine(p.Name + " " + p.Surname + " " + p.Result);
+            }
 
 
         }

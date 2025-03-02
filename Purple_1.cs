@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6
+namespace Lab_6
 {
     public class Purple_1
     {
@@ -14,6 +14,7 @@ namespace Lab6
             private string _surname;
             private double[] _coefs;
             private int[,] _marks;
+            private int _k;
             public string Name
             {
                 get
@@ -33,7 +34,7 @@ namespace Lab6
                 get
                 {
                     double[] copy = new double[4];
-                    _coefs.CopyTo(copy, 0);
+                    Array.Copy(_coefs, copy, _coefs.Length);
                     return copy;
                 }
             }
@@ -77,7 +78,7 @@ namespace Lab6
                 _surname = surname;
                 _coefs = new double[] { 2.5, 2.5, 2.5, 2.5 };
                 _marks = new int[,] { { 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0 } };
-               
+                _k = 0;
             }
             //методы
             public void SetCriterias(double[] coefs)
@@ -92,16 +93,12 @@ namespace Lab6
             
             public void Jump(int[] marks)
             {
-                for (int i = 0; i < 4; i++)
+                if (marks == null || marks.Length != 7 || _marks == null || _k>=_marks.GetLength(0)) return;
+                for (int i = 0; i < marks.Length; i++)
                 {
-                    for (int j = 0; j < 7; j++)
-                    {
-                        int col = i % marks.Length;
-                        int row = j % marks.Length;
-
-                        _marks[col, row] = marks[i * 7 + j];
-                    }
+                    _marks[_k, i]= marks[i];
                 }
+                _k++;
             }
             public void Print()
             {
@@ -109,15 +106,7 @@ namespace Lab6
                 Console.WriteLine($"Имя: {Name}. Фамилия: {Surname}. Результат: {TotalScore}");
 
             }
-            public static void Sort(List<Participant> array)
-            {
-                if (array == null || array.Count == 0) return;
-                List<Participant> array1 = array.OrderByDescending(x => x.TotalScore).ToList();
-                for (int i = 0; i < array1.Count; i++)
-                {
-                    array1[i].Print();
-                }
-            }
+            
             public static void Sort(Participant[] array)
             {
                 if (array == null || array.Length == 0) return;

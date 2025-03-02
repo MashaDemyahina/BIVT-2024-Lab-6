@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab6
+namespace Lab_6
 {
-    internal class Purple_3
+    public class Purple_3
     {
         public struct Participant
         {
@@ -22,7 +22,7 @@ namespace Lab6
                 get
                 {
                     int[] copy = new int[7];
-                    _places.CopyTo(copy, 0);
+                    Array.Copy(_places, copy, _places.Length);
                     return copy;
                 }
 
@@ -32,8 +32,9 @@ namespace Lab6
                 get
                 {
                     double[] copy = new double[7];
-                    _marks.CopyTo(copy, 0);
+                    Array.Copy(_marks, copy, _marks.Length);
                     return copy;
+                    
                 }
             }
 
@@ -96,9 +97,28 @@ namespace Lab6
 
         public static void Sort(Participant[] array)
         {
-            Purple_3.Participant[] sorted = array.OrderBy(p => p.Score).ThenByDescending(p => p.TotalMark).ToArray();
-            Array.Copy(sorted, array, array.Length);
-        }
+            
+                if (array == null) return;
+                foreach (var x in array)
+                {
+                    if (x.Places == null) return;
+                }
+                Array.Sort(array, (x, y) =>
+                {
+                    if (x.Score == y.Score)
+                    {
+                        if (x.TopPlace == y.TopPlace)
+                        {
+                            double z = x.TotalMark - y.TotalMark;
+                            if (z < 0) return 1;
+                            else if (z > 0) return -1;
+                            else return 0;
+                        }
+                        return x.TopPlace - y.TopPlace;
+                    }
+                    return x.Score - y.Score;
+                });
+            }
 
         }
     }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Lab6.Purple_4;
+using static Lab_6.Purple_4;
 
-namespace Lab6
+namespace Lab_6
 {
-    internal class Purple_4
+    public class Purple_4
     {
         public struct Sportsman
         {
@@ -113,7 +113,8 @@ namespace Lab6
             public void Sort()
             {
                 if (_sportsmen == null) return;
-                _sportsmen = _sportsmen.OrderBy(x => x.Time).ToArray();
+                Array.Sort(_sportsmen, (x, y) =>{if (x.Time < y.Time) return -1;else if (x.Time > y.Time) return 1; else return 0;});
+
             }
             public static Group Merge(Group group1, Group group2)
             {
