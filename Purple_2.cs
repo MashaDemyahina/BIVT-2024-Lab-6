@@ -22,7 +22,8 @@ namespace Lab_6
             { 
                 get 
                 {
-                    int[] copy = new int[5];
+                    if (_marks == null) return null;
+                    int[] copy = new int[_marks.Length];
                     Array.Copy(_marks, copy, _marks.Length);
                     return copy;
                 } 

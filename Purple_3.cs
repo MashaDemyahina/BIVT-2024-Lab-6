@@ -21,7 +21,8 @@ namespace Lab_6
             {
                 get
                 {
-                    int[] copy = new int[7];
+                    if (_places == null) return null;
+                    int[] copy = new int[_places.Length];
                     Array.Copy(_places, copy, _places.Length);
                     return copy;
                 }
@@ -31,16 +32,39 @@ namespace Lab_6
             {
                 get
                 {
-                    double[] copy = new double[7];
+                    if (_marks == null) return null;
+                    double[] copy = new double[_marks.Length];
                     Array.Copy(_marks, copy, _marks.Length);
                     return copy;
                     
                 }
             }
 
-            public int Score => Places.Sum();
-            public int TopPlace => Places.Min();
-            public double TotalMark => Marks.Sum();
+            public int Score
+            {
+                get
+                {
+                    if (_places == null) return 0;
+                    return Places.Sum();
+                }
+            }
+            public int TopPlace
+            {
+                get
+                {
+                    if (_places == null) return 0;
+                    return Places.Min();
+                }
+            }
+            public double TotalMark
+            {
+                get
+                {
+                    if (_marks == null) return 0;
+                    return Marks.Sum();
+                }
+            }
+            
 
             public Participant(string name, string surname)
             {
@@ -73,6 +97,7 @@ namespace Lab_6
 
             public void SetPlace(int judge, int place)
             {
+                if (_places == null || judge < 0 || judge > _places.Length) return;
                 _places[judge] = place;
             }
 

@@ -72,8 +72,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null) return null;
-                    return (Sportsman[])_sportsmen.Clone();
+                    return _sportsmen;
                 }
             }
 

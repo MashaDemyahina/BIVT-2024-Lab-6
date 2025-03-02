@@ -42,7 +42,8 @@ namespace Lab_6
             {
                 get
                 {
-                    int[,] copy = new int[4, 7];
+                    if (_marks == null) return null;
+                    int[,] copy = new int[_marks.GetLength(0), _marks.GetLength(1)];
                     Array.Copy(_marks, copy, _marks.Length);
                     return copy;
                 }
@@ -109,12 +110,9 @@ namespace Lab_6
             
             public static void Sort(Participant[] array)
             {
-                if (array == null || array.Length == 0) return;
-                array = array.OrderByDescending(x => x.TotalScore).ToArray();
-                for (int i = 0; i < array.Length; i++)
-                {
-                    array[i].Print();
-                }
+                if (array == null) return;
+                var array1 = array.OrderByDescending(x => x.TotalScore).ToArray();
+                Array.Copy(array1, array, array.Length);
             }
         }
     }
