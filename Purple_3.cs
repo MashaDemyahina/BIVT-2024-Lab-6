@@ -14,6 +14,7 @@ namespace Lab_6
             private string _surname;
             private int[] _places;
             private double[] _marks;
+            private int _k;
 
             public string Name => _name;
             public string Surname => _surname;
@@ -70,7 +71,7 @@ namespace Lab_6
             {
                 _name = name;
                 _surname = surname;
-
+                _k = 0;
                 _places = new int[7];
                 _marks = new double[7];
             }
@@ -82,17 +83,9 @@ namespace Lab_6
                     Console.WriteLine("Оценка может быть только от 0 до 6");
                     return;
                 }
-
-                for (int i = 0; i < _marks.Length; i++)
-                {
-                    if (_marks[i] != 0)
-                    {
-                        continue;
-                    }
-
-                    _marks[i] = result;
-                    return;
-                }
+                if (_marks == null || _k >= _marks.Length) return;
+                _marks[_k] = result;
+                _k++;
             }
 
             public void SetPlace(int judge, int place)
@@ -110,12 +103,29 @@ namespace Lab_6
             if (participants == null) return;
             for (int j = 0; j < 7; j++)
             {
-                Purple_3.Participant[] sorted = participants.OrderByDescending(p => p.Marks[j]).ToArray();
+                    Array.Sort(participants, (x, y) =>
+                    {
+                        double a = 0, b = 0;
 
-                for (int i = 0; i < sorted.Length; i++)
-                {
-                    int index = Array.IndexOf(participants, sorted[i]);
-                    participants[index].SetPlace(j, i + 1);
+                        if (x.Marks == null)
+                            a = 0;
+                        else
+                            a = x.Marks[j];
+                        if (y.Marks == null)
+                            b = 0;
+                        else
+                            b = y.Marks[j];
+                        double raz = a - b;
+                        if (raz < 0)
+                            return 1;
+                        else if (raz > 0)
+                            return -1;
+                        else
+                            return 0;
+                    });
+
+                    for (int i = 0; i < participants.Length; i++)
+                        participants[i].SetPlace(j, i + 1);
                 }
             }
         }

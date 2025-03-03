@@ -33,6 +33,7 @@ namespace Lab_6
             {
                 get
                 {
+                    if (_coefs == null) return null;
                     double[] copy = new double[4];
                     Array.Copy(_coefs, copy, _coefs.Length);
                     return copy;
@@ -52,6 +53,7 @@ namespace Lab_6
             {
                 get
                 {
+                    if (_marks == null || _coefs == null) return 0;
                     double rez = 0;
                     for (int i=0; i<4; i++)//прыжки
                     {
