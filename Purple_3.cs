@@ -88,7 +88,7 @@ namespace Lab_6
                 _k++;
             }
 
-            public void SetPlace(int judge, int place)
+            private void SetPlace(int judge, int place)
             {
                 if (_places == null || judge < 0 || judge > _places.Length) return;
                 _places[judge] = place;
