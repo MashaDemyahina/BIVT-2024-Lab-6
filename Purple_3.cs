@@ -49,7 +49,7 @@ namespace Lab_6
                     return Places.Sum();
                 }
             }
-            public int TopPlace
+            private int TopPlace
             {
                 get
                 {
@@ -57,7 +57,7 @@ namespace Lab_6
                     return Places.Min();
                 }
             }
-            public double TotalMark
+            private double TotalMark
             {
                 get
                 {
@@ -128,33 +128,34 @@ namespace Lab_6
                         participants[i].SetPlace(j, i + 1);
                 }
             }
-        }
-
-        public static void Sort(Participant[] array)
-        {
+            public static void Sort(Participant[] array)
+             {
             
-                if (array == null) return;
-                foreach (var x in array)
-                {
-                    if (x.Places == null) return;
-                }
-                Array.Sort(array, (x, y) =>
-                {
-                    if (x.Score == y.Score)
-                    {
-                        if (x.TopPlace == y.TopPlace)
-                        {
-                            double z = x.TotalMark - y.TotalMark;
-                            if (z < 0) return 1;
-                            else if (z > 0) return -1;
-                            else return 0;
-                        }
-                        return x.TopPlace - y.TopPlace;
-                    }
-                    return x.Score - y.Score;
-                });
-            }
+                            if (array == null) return;
+                            foreach (var x in array)
+                            {
+                                if (x.Places == null) return;
+                            }
+                            Array.Sort(array, (x, y) =>
+                            {
+                                if (x.Score == y.Score)
+                                {
+                                    if (x.TopPlace == y.TopPlace)
+                                    {
+                                        double z = x.TotalMark - y.TotalMark;
+                                        if (z < 0) return 1;
+                                        else if (z > 0) return -1;
+                                        else return 0;
+                                    }
+                                    return x.TopPlace - y.TopPlace;
+                                }
+                                return x.Score - y.Score;
+                            });
+             }
 
+            }
         }
+
+        
     }
-}
+
